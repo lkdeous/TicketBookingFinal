@@ -1,15 +1,106 @@
 body {
-  background-color: #f8f9fa;
+  background-color: #f0f2f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .navbar {
-  margin-bottom: 20px;
+  background: linear-gradient(90deg, #1f3c88, #4e8cff);
+}
+
+.navbar .nav-link {
+  color: #fff !important;
+  transition: all 0.3s;
+}
+
+.navbar .nav-link:hover {
+  color: #ffd700 !important;
+  text-decoration: underline;
 }
 
 .card {
-  min-height: 150px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  transition: all 0.3s;
+}
+
+.btn-success:hover {
+  background-color: #1e7e34;
+  transform: scale(1.05);
 }
 
 .seats button {
-  width: 60px;
+  width: 50px;
+  height: 50px;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.seats button:hover:not(:disabled) {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.seats button.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.seats button.btn-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.seats button.btn-outline-primary {
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+h2 {
+  color: #1f3c88;
+  margin-bottom: 1rem;
+}
+
+h4 {
+  color: #4e8cff;
+  margin-bottom: 0.5rem;
+}
+
+.list-group-item {
+  border-radius: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+.card-img-top {
+  transition: transform 0.3s;
+}
+
+.card-img-top:hover {
+  transform: scale(1.05);
 }
