@@ -1,10 +1,26 @@
+/* --- Общие стили --- */
 body {
-  background-color: #f0f2f5;
+  background-color: #f4f7fa;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
+h2 {
+  color: #1f3c88;
+  margin-bottom: 1.5rem;
+}
+
+h4 {
+  color: #4e8cff;
+  margin-bottom: 1rem;
+}
+
+/* --- Navbar --- */
 .navbar {
   background: linear-gradient(90deg, #1f3c88, #4e8cff);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .navbar .nav-link {
@@ -17,17 +33,45 @@ body {
   text-decoration: underline;
 }
 
+.btn-outline-light {
+  transition: all 0.3s;
+}
+
+.btn-outline-light:hover {
+  background-color: #fff;
+  color: #1f3c88;
+  transform: scale(1.05);
+}
+
+/* --- Карточки фильмов --- */
 .card {
   border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
 }
 
+.card-img-top {
+  height: 300px;
+  object-fit: cover;
+  border-radius: 1rem 1rem 0 0;
+  transition: transform 0.3s;
+}
+
+.card-img-top:hover {
+  transform: scale(1.05);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Кнопки --- */
 .btn-primary {
   background-color: #007bff;
   border: none;
@@ -50,11 +94,27 @@ body {
   transform: scale(1.05);
 }
 
+.btn-danger {
+  transition: all 0.3s;
+}
+
+.btn-danger:hover {
+  transform: scale(1.05);
+}
+
+/* --- Выбор мест --- */
+.seats {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
 .seats button {
   width: 50px;
   height: 50px;
   border-radius: 0.5rem;
   font-weight: bold;
+  margin: 4px;
   transition: all 0.2s;
 }
 
@@ -78,29 +138,22 @@ body {
   border: 2px solid #007bff;
 }
 
-h2 {
-  color: #1f3c88;
-  margin-bottom: 1rem;
-}
-
-h4 {
-  color: #4e8cff;
-  margin-bottom: 0.5rem;
-}
-
+/* --- Списки и таблицы --- */
 .list-group-item {
   border-radius: 0.75rem;
   margin-bottom: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: all 0.3s;
 }
 
+.list-group-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+/* --- Контейнер --- */
 .container {
   max-width: 1200px;
-}
-
-.card-img-top {
-  transition: transform 0.3s;
-}
-
-.card-img-top:hover {
-  transform: scale(1.05);
+  padding-top: 1rem;
+  padding-bottom: 2rem;
 }

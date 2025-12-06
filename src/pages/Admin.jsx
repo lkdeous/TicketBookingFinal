@@ -7,12 +7,41 @@ function Admin() {
   const [time, setTime] = useState("");
   const [image, setImage] = useState("");
   const [movies, setMovies] = useState([]);
+  const [allBookings, setAllBookings] = useState([]);
 
+  // Загружаем фильмы
   useEffect(() => {
     const savedMovies = JSON.parse(localStorage.getItem("movies")) || [];
     setMovies(savedMovies);
   }, []);
 
+  // Загружаем все брони пользователей
+  useEffect(() => {
+    const bookings = JSON.parse(localStorage.getItem("bookings")) || {};
+    const moviesList = JSON.parse(localStorage.getItem("movies")) || [];
+    const bookingsArray = [];
+
+    Object.keys(bookings).forEach((movieId) => {
+      const movieData = moviesList.find((m) => m.id === Number(movieId));
+      if (!movieData) return;
+
+      const usersBookings = bookings[movieId];
+      Object.keys(usersBookings).forEach((username) => {
+        const seats = usersBookings[username]?.seats;
+        if (seats && seats.length > 0) {
+          bookingsArray.push({
+            movie: movieData.title,
+            user: username,
+            seats: seats,
+          });
+        }
+      });
+    });
+
+    setAllBookings(bookingsArray);
+  }, []);
+
+  // Добавление нового фильма
   const handleAddMovie = () => {
     if (!title || !description || !date || !time || !image) {
       alert("Заполните все поля!");
@@ -39,9 +68,10 @@ function Admin() {
     setImage("");
   };
 
-  // Функция удаления фильма
+  // Удаление фильма
   const handleDeleteMovie = (id) => {
     if (!window.confirm("Вы точно хотите удалить этот фильм?")) return;
+
     const updatedMovies = movies.filter((movie) => movie.id !== id);
     setMovies(updatedMovies);
     localStorage.setItem("movies", JSON.stringify(updatedMovies));
@@ -50,6 +80,8 @@ function Admin() {
   return (
     <div>
       <h2>Admin Panel</h2>
+
+      {/* Форма добавления фильма */}
       <div className="mb-3">
         <input
           type="text"
@@ -88,8 +120,9 @@ function Admin() {
         </button>
       </div>
 
+      {/* Список фильмов */}
       <h4>Current Movies:</h4>
-      <ul className="list-group">
+      <ul className="list-group mb-4">
         {movies.map((movie) => (
           <li
             key={movie.id}
@@ -104,6 +137,19 @@ function Admin() {
             >
               Delete
             </button>
+          </li>
+        ))}
+      </ul>
+
+      {/* Список всех бронирований */}
+      <h4>All User Bookings:</h4>
+      {allBookings.length === 0 && <p>Нет бронирований</p>}
+      <ul className="list-group">
+        {allBookings.map((b, index) => (
+          <li key={index} className="list-group-item">
+            <strong>Фильм:</strong> {b.movie} <br />
+            <strong>Пользователь:</strong> {b.user} <br />
+            <strong>Места:</strong> {b.seats.join(", ")}
           </li>
         ))}
       </ul>

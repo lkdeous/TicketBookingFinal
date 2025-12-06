@@ -6,12 +6,9 @@ function BookTickets() {
   const [booking, setBooking] = useState(null);
 
   useEffect(() => {
-    const savedBooking = JSON.parse(localStorage.getItem("selectedSeats"));
-    if (!savedBooking) {
-      navigate("/"); // если нет брони, редирект на главную
-      return;
-    }
-    setBooking(savedBooking);
+    const b = JSON.parse(localStorage.getItem("selectedSeats"));
+    if (!b) navigate("/browse-movies");
+    else setBooking(b);
   }, [navigate]);
 
   if (!booking) return null;
@@ -20,9 +17,6 @@ function BookTickets() {
     <div>
       <h2>Booking Confirmation</h2>
       <p>Movie: {booking.movie.title}</p>
-      <p>
-        Date: {booking.movie.date} | Time: {booking.movie.time}
-      </p>
       <p>Seats: {booking.seats.join(", ")}</p>
       <p className="text-success">Your booking has been saved!</p>
     </div>

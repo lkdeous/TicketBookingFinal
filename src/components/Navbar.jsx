@@ -1,7 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    setCurrentUser(user);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    setCurrentUser(null);
+    navigate("/login");
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
       <div className="container">
@@ -23,21 +37,54 @@ function Navbar() {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link className="nav-link fw-semibold" to="/">
-                Browse Movies
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link fw-semibold" to="/book-tickets">
-                BookTickets
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link fw-semibold" to="/admin">
-                Admin
-              </Link>
-            </li>
+            {!currentUser && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link fw-semibold" to="/login">
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link fw-semibold" to="/register">
+                    Register
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {currentUser?.role === "user" && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link fw-semibold" to="/">
+                    Browse Movies
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link fw-semibold" to="/my-bookings">
+                    MyBookings
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {currentUser?.role === "admin" && (
+              <li className="nav-item">
+                <Link className="nav-link fw-semibold" to="/admin">
+                  Admin
+                </Link>
+              </li>
+            )}
+
+            {currentUser && (
+              <li className="nav-item">
+                <button
+                  className="btn btn-outline-light ms-2"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       </div>
